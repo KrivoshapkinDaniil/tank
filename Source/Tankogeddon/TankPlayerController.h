@@ -20,12 +20,21 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
+
+	FVector GetMousePosition() { return MousePosition; };
+
 protected:
 	UPROPERTY()
 	class ATankPawn* TankPawn;
 
+	UPROPERTY()
+		FVector MousePosition;
+
 	void MoveForward(float Value);
 
 	void RotateRight(float Value);
+
+	void Fire();
 
 };
