@@ -43,7 +43,7 @@ protected:
 		ECannonType CannonType = ECannonType::FireProjectile;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Components")
-		float shells = 5.0f;
+		float shells = 5;
 
 	bool bReadyToFire = true;
 
