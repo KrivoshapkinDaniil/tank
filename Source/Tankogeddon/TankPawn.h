@@ -9,6 +9,8 @@
 class UStaticMeshComponent;
 class USpringArmComponent;
 class UCameraComponent;
+class ATankPlayerController;
+class ACannon;
 
 UCLASS()
 class TANKOGEDDON_API ATankPawn : public APawn
@@ -23,7 +25,15 @@ public:
 
 	void RotateRight(float Value);
 
-	void Tick(float DeltaTime);
+	virtual void BeginPlay() override;
+
+	void Tick(float DeltaTime) override;
+
+
+	UFUNCTION()
+		void Fire();
+	void FireSpecial();
+
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
@@ -38,15 +48,29 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement|Speed")
 		float MoveSpeed = 100;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement|Speed")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement|Rotation")
 		float RotationSpeed = 100;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement|Rotation")
+		float TurretRotationSpeedKey = 1;
 
 	float _targetForwardAxisValue;
 
 	float targetRotateAxisValue = 0.0f;
 
+	ATankPlayerController* Controller;
 
+	//Fire
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Components")
+		class UArrowComponent* CannonSetupPoint;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turret | Cannon")
+		TSubclassOf<ACannon> CannonClass;
 
+	UPROPERTY()
+		ACannon* Cannon;
 
+	void SetupCannon();
+
+	
 };
